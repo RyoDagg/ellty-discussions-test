@@ -25,14 +25,14 @@ export class DiscussionsService {
   async getDiscussion(discussionId: string) {
     const discussion = await this.discussionModel
       .findById(discussionId)
-      .populate('userId')
+      .populate({ path: 'userId', select: '-password' })
       .lean();
 
     if (!discussion) return null;
 
     const messages = await this.messageModel
       .find({ discussionId: new Types.ObjectId(discussionId) })
-      .populate('userId')
+      .populate({ path: 'userId', select: '-password' })
       .lean();
 
     const buildTree = (parentId: Types.ObjectId | null = null) =>
