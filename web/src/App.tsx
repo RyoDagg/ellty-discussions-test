@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { api } from "./services/api";
 import { useAuthStore } from "./services/store";
 import Login from "./pages/auth/login";
+import Register from "./pages/auth/register";
 
 function App() {
   const { setUser, user } = useAuthStore();
@@ -34,7 +35,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/discussion/:id" element={<Discussions />} />
         {!user && <Route path="/auth/login" element={<Login />} />}
-        {!user && <Route path="/auth/register" element={<Discussions />} />}
+        {!user && <Route path="/auth/register" element={<Register />} />}
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

@@ -25,23 +25,29 @@ const Navbar = () => {
             Home
           </Link>
         </div>
-        <div>
-          {user ? (
-            <button
-              onClick={handleLogout}
-              className="text-lg text-red-900 font-bold border-b-2 border-transparent hover:border-b-red-900 px-2"
-            >
-              Logout
-            </button>
-          ) : (
+        {user ? (
+          <button
+            onClick={handleLogout}
+            className="text-lg text-red-900 font-bold border-b-2 border-transparent hover:border-b-red-900 px-2"
+          >
+            Logout
+          </button>
+        ) : (
+          <div className="space-x-4">
             <Link
               to="/auth/login"
               className="text-lg text-blue-900 font-bold border-b-2 border-transparent hover:border-b-blue-900 px-2"
             >
               Login
             </Link>
-          )}
-        </div>
+            <Link
+              to="/auth/register"
+              className="text-lg text-blue-900 font-bold border-b-2 border-transparent hover:border-b-blue-900 px-2"
+            >
+              Register
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   );

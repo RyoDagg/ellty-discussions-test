@@ -14,8 +14,11 @@ export class UserService {
 
   async register(email: string, password: string) {
     const hashed = await bcrypt.hash(password, 10);
-    const user = this.userModel.create({ email, password: hashed });
-    return user;
+    const user = await this.userModel.create({ email, password: hashed });
+
+    const token = this.jwt.sign({ userId: user._id });
+
+    return { token, user };
   }
 
   async login(email: string, password: string) {

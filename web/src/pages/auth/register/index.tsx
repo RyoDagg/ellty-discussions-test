@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useAuthStore } from "../../../services/store";
 import { api } from "../../../services/api";
 
-export default function Login() {
+export default function Register() {
   const { setUser } = useAuthStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
-      const user = await api.post("/auth/login", { email, password });
+      const user = await api.post("/auth/register", { email, password });
       setUser(user);
     } catch (err) {
       console.error("Error creating user", err);
@@ -19,7 +19,7 @@ export default function Login() {
   return (
     <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg mx-auto my-24">
       <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-        Login
+        Register
       </h1>
 
       <input
@@ -39,10 +39,10 @@ export default function Login() {
       />
 
       <button
-        onClick={handleLogin}
-        className="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200"
+        onClick={handleRegister}
+        className="w-full py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-200"
       >
-        Login
+        Register
       </button>
     </div>
   );

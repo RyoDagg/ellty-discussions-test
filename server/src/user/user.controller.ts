@@ -19,8 +19,17 @@ export class UserController {
   async register(
     @Body('email') email: string,
     @Body('password') password: string,
+    @Res({ passthrough: true }) res: Response,
   ) {
-    return this.userService.register(email, password);
+    const { token, user } = await this.userService.register(email, password);
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    });
+
+    return user;
   }
 
   @Post('login')
