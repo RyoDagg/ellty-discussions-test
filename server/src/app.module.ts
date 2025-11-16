@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { DiscussionsModule } from './discussions/discussions.module';
 import { MessagesModule } from './messages/messages.module';
 import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
     ),
     DiscussionsModule,
     MessagesModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
