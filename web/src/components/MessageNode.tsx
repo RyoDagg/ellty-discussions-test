@@ -20,48 +20,43 @@ export default function MessageNode({
 
   return (
     <div className="relative">
-      {!isRoot && (
-        <div
-          className="absolute left-0 top-0 h-full border-l border-gray-300"
-          style={{ marginLeft: (level - 1) * 28 + 14 }}
-        ></div>
-      )}
+      {/* Thread Lines */}
+      <div
+        className="absolute left-0 top-0 h-full border-l border-gray-300"
+        style={{ marginLeft: (level - 1) * 28 + 14 }}
+      />
 
       <div
         className="flex items-start gap-2"
         style={{ marginLeft: level * 28 }}
       >
-        <div
-          className={
-            "rounded-lg px-3 py-2 border shadow-sm " +
-            (isRoot
-              ? "bg-blue-100 border-blue-300"
-              : "bg-white border-gray-300")
-          }
-        >
-          <p className="text-sm text-gray-900 font-medium">
-            {node.operation} {node.value} →{" "}
-            <span className="font-bold">{node.result}</span>
-          </p>
+        <div className="px-3 py-2 min-w-36">
+          {isRoot ? (
+            <p className="text-2xl text-gray-800 underline font-bold">
+              {node.operand}
+            </p>
+          ) : (
+            <p className="text-gray-900 font-medium">
+              {node.operation} {node.operand} ={" "}
+              <span className="font-bold">{node.result}</span>
+            </p>
+          )}
 
-          {/* Collapse toggle (Feature #4) */}
           {node.children?.length > 0 && (
             <button
               onClick={() => setCollapsed(!collapsed)}
-              className="text-xs text-blue-500 underline mt-1"
+              className="text-xs underline cursor-pointer text-blue-500 mt-1"
             >
               {collapsed ? "Expand" : "Collapse"}
             </button>
           )}
 
-          {/* Reply button (Feature #2) */}
           <button
-            className="text-xs text-green-600 underline ml-2"
+            className="text-xs text-green-600 underline cursor-pointer ml-2"
             onClick={() => setShowReply((p) => !p)}
           >
             Reply
           </button>
-
           {/* Reply UI */}
           {showReply && (
             <div className="mt-2 flex items-center gap-2">
@@ -86,7 +81,7 @@ export default function MessageNode({
               <button
                 className="bg-green-500 text-white px-2 py-1 rounded text-sm"
                 onClick={() => {
-                  if (onReply) onReply(node._id, replyOp, replyValue);
+                  onReply(node._id, replyOp, replyValue);
                   setShowReply(false);
                 }}
               >
@@ -97,7 +92,7 @@ export default function MessageNode({
         </div>
       </div>
 
-      {/* Recursive children (respect collapse) */}
+      {/* Recursive children */}
       {!collapsed &&
         node.children?.map((child: any) => (
           <MessageNode
