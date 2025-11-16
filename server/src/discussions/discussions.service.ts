@@ -22,12 +22,26 @@ export class DiscussionsService {
     return this.discussionModel.find().sort({ createdAt: -1 }).lean();
   }
 
-  async getTree(discussionId: string) {
-    console.log('discussionId', discussionId);
+  async getDiscussion(discussionId: string) {
+    const discussion = await this.discussionModel.findById(discussionId).lean();
+
+    if (!discussion) return null;
+
     const messages = await this.messageModel
       .find({ discussionId: new Types.ObjectId(discussionId) })
-      .sort({ createdAt: 1 })
       .lean();
-    return messages;
+
+    const buildTree = (parentId: Types.ObjectId | null = null) =>
+      messages
+        .filter((m) => String(m.parentId) === String(parentId))
+        .map((m) => ({
+          ...m,
+          children: buildTree(m._id),
+        }));
+
+    return {
+      ...discussion,
+      messages: buildTree(),
+    };
   }
 }

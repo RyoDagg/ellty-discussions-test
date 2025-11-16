@@ -16,7 +16,7 @@ export class DiscussionsController {
   }
 
   @Get(':id')
-  async getTree(@Param('id') id: string) {
-    return this.service.getTree(id);
+  async getDiscussion(@Param('id') id: string) {
+    return this.service.getDiscussion(id);
   }
 }
