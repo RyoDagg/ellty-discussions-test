@@ -17,11 +17,11 @@ export class UserController {
 
   @Post('register')
   async register(
-    @Body('email') email: string,
+    @Body('username') username: string,
     @Body('password') password: string,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { token, user } = await this.userService.register(email, password);
+    const { token, user } = await this.userService.register(username, password);
 
     res.cookie('token', token, {
       httpOnly: true,
@@ -34,11 +34,11 @@ export class UserController {
 
   @Post('login')
   async login(
-    @Body('email') email: string,
+    @Body('username') username: string,
     @Body('password') password: string,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { token, user } = await this.userService.login(email, password);
+    const { token, user } = await this.userService.login(username, password);
 
     res.cookie('token', token, {
       httpOnly: true,

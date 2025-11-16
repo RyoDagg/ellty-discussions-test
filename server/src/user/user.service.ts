@@ -12,17 +12,17 @@ export class UserService {
     private jwt: JwtService,
   ) {}
 
-  async register(email: string, password: string) {
+  async register(username: string, password: string) {
     const hashed = await bcrypt.hash(password, 10);
-    const user = await this.userModel.create({ email, password: hashed });
+    const user = await this.userModel.create({ username, password: hashed });
 
     const token = this.jwt.sign({ userId: user._id });
 
     return { token, user };
   }
 
-  async login(email: string, password: string) {
-    const user = await this.userModel.findOne({ email }).exec();
+  async login(username: string, password: string) {
+    const user = await this.userModel.findOne({ username }).exec();
     if (!user) throw new UnauthorizedException('Invalid credentials');
 
     const match = await bcrypt.compare(password, user.password);
@@ -31,14 +31,6 @@ export class UserService {
     const token = this.jwt.sign({ userId: user._id });
 
     return { token, user };
-  }
-
-  async verify(token: string) {
-    try {
-      return this.jwt.verify(token);
-    } catch {
-      return null;
-    }
   }
 
   async getProfile(id: string): Promise<User | null> {
