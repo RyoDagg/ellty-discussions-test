@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Link } from "react-router-dom";
+import DiscussionForm from "../../components/DiscussionForm";
 
 interface Discussion {
   _id: string;
@@ -23,6 +24,7 @@ export default function Home() {
         setLoading(false);
       }
     }
+
     fetchDiscussions();
   }, []);
 
@@ -33,6 +35,7 @@ export default function Home() {
   return (
     <div className="max-w-2xl mx-auto mt-10">
       <h1 className="text-2xl font-bold mb-4">Discussions</h1>
+      <DiscussionForm />
 
       {discussions.length === 0 ? (
         <p className="text-gray-500">No discussions yet.</p>

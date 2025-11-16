@@ -50,10 +50,12 @@ export default function Discussions() {
     <div className="p-4">
       <MessageNode
         node={{
+          _id: discussion._id,
           operand: discussion.start,
+          createdAt: discussion.createdAt,
           children: discussion.messages,
+          userId: discussion.userId,
         }}
-        isRoot={true}
         onReply={handleReply}
       />
     </div>
