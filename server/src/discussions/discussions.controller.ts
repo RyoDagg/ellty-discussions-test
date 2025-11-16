@@ -1,13 +1,23 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { DiscussionsService } from './discussions.service';
+import { JwtAuthGuard } from 'src/user/jwt-auth.guard';
 
 @Controller('discussions')
 export class DiscussionsController {
   constructor(private readonly service: DiscussionsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Body() body: { start: number }) {
-    return this.service.create(body.start);
+  async create(@Body('start') start: number, @Req() req: any) {
+    return this.service.create(start, req.user.userId);
   }
 
   @Get()

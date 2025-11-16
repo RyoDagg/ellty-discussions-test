@@ -14,8 +14,8 @@ export class DiscussionsService {
     private messageModel: Model<Message>,
   ) {}
 
-  async create(start: number) {
-    return this.discussionModel.create({ start });
+  async create(start: number, userId: string) {
+    return this.discussionModel.create({ start, userId });
   }
 
   async findAll() {
@@ -23,12 +23,16 @@ export class DiscussionsService {
   }
 
   async getDiscussion(discussionId: string) {
-    const discussion = await this.discussionModel.findById(discussionId).lean();
+    const discussion = await this.discussionModel
+      .findById(discussionId)
+      .populate('userId')
+      .lean();
 
     if (!discussion) return null;
 
     const messages = await this.messageModel
       .find({ discussionId: new Types.ObjectId(discussionId) })
+      .populate('userId')
       .lean();
 
     const buildTree = (parentId: Types.ObjectId | null = null) =>

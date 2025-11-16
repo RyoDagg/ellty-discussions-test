@@ -13,12 +13,15 @@ export class MessagesService {
     private discussionModel: Model<Discussion>,
   ) {}
 
-  async create(payload: {
-    discussionId: string;
-    parentId: string | null;
-    operation: string;
-    operand: number;
-  }) {
+  async create(
+    payload: {
+      discussionId: string;
+      parentId: string | null;
+      operation: string;
+      operand: number;
+    },
+    userId: string,
+  ) {
     const { discussionId, parentId, operation, operand } = payload;
 
     if (!['+', '-', '*', '/'].includes(operation))
@@ -49,6 +52,7 @@ export class MessagesService {
       operation,
       operand,
       result,
+      userId,
     });
   }
 }
