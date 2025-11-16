@@ -23,7 +23,7 @@ export default function Discussions() {
   }, [id]);
 
   const handleReply = async (
-    parentId: string,
+    parentId: string | null,
     operation: string,
     operand: number
   ) => {
@@ -48,18 +48,14 @@ export default function Discussions() {
 
   return (
     <div className="p-4">
-      <h1 className="text-xl font-semibold mb-4">
-        Discussion starting number: {discussion.start}
-      </h1>
-
-      {discussion.messages.map((message: any) => (
-        <MessageNode
-          key={message._id}
-          node={message}
-          isRoot={true}
-          onReply={handleReply}
-        />
-      ))}
+      <MessageNode
+        node={{
+          operand: discussion.start,
+          children: discussion.messages,
+        }}
+        isRoot={true}
+        onReply={handleReply}
+      />
     </div>
   );
 }
