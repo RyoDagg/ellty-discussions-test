@@ -4,7 +4,7 @@ import { api } from "../../services/api";
 import MessageNode from "../../components/MessageNode";
 import type { User } from "../../services/store";
 
-interface Discussion {
+export interface Discussion {
   _id: string;
   start: number;
   createdAt: string;
