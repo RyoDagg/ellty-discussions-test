@@ -35,6 +35,9 @@ importers:
       cookie-parser:
         specifier: ^1.4.7
         version: 1.4.7
+      mongoose:
+        specifier: ^8.19.4
+        version: 8.19.4
       passport:
         specifier: ^0.7.0
         version: 0.7.0
