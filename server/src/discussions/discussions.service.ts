@@ -19,7 +19,11 @@ export class DiscussionsService {
   }
 
   async findAll() {
-    return this.discussionModel.find().sort({ createdAt: -1 }).lean();
+    return this.discussionModel
+      .find()
+      .populate('userId')
+      .sort({ createdAt: -1 })
+      .lean();
   }
 
   async getDiscussion(discussionId: string) {

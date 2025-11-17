@@ -141,43 +141,40 @@ export default function Home() {
           </div>
         ) : (
           <div className="space-y-4">
-            {discussions.map((d) => (
+            {discussions.map((discussion) => (
               <Link
-                to={`/discussion/${d._id}`}
-                key={d._id}
+                to={`/discussion/${discussion._id}`}
+                key={discussion._id}
                 className="block bg-white rounded-xl shadow-lg p-6 border border-gray-200 hover:shadow-xl hover:border-indigo-300 transition-all duration-200 group"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-200 transition-colors">
-                        <svg
-                          className="w-6 h-6 text-indigo-600"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
-                          Start Value: {d.start}
-                        </h3>
-                        <p className="text-sm text-gray-500 mt-1">
-                          {new Date(d.createdAt).toLocaleDateString("en-US", {
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
+                        Start Value: {discussion.start}
+                      </h3>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {new Date(discussion.createdAt).toLocaleDateString(
+                          "en-US",
+                          {
                             year: "numeric",
                             month: "long",
                             day: "numeric",
                             hour: "2-digit",
                             minute: "2-digit",
-                          })}
-                        </p>
+                          }
+                        )}
+                      </p>
+                      <div className="flex items-center gap-2">
+                        {discussion.userId?.username ? (
+                          <span className="text-xs font-semibold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">
+                            @{discussion.userId.username}
+                          </span>
+                        ) : (
+                          <span className="text-xs italic text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                            anonymous
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
