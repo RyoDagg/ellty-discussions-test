@@ -3,7 +3,7 @@ import type { User } from "../services/store";
 import { useAuthStore } from "../services/store";
 
 interface MessageNode {
-  _id: string;
+  _id: string | null;
   parentId?: string | null;
   operation?: string;
   operand: number;
@@ -16,7 +16,7 @@ interface MessageNodeProps {
   node: MessageNode;
   level?: number;
   isRoot?: boolean;
-  onReply: (parentId: string, op: string, val: number) => void;
+  onReply: (parentId: string | null, op: string, val: number) => void;
 }
 
 export default function MessageNode({
