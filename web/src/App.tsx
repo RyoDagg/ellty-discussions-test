@@ -1,6 +1,7 @@
 import "./App.css";
 
 import { Navigate, Route, Routes } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 
 import Navbar from "./components/navbar";
 
@@ -39,6 +40,7 @@ function App() {
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      <Analytics />
     </div>
   );
 }
