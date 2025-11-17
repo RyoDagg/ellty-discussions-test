@@ -29,7 +29,6 @@ export default function Home() {
     fetchDiscussions();
   }, []);
 
-  // Loading state
   if (loading) {
     return (
       <div className="min-h-screen">
@@ -58,7 +57,6 @@ export default function Home() {
     );
   }
 
-  // Error state
   if (error && discussions.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">

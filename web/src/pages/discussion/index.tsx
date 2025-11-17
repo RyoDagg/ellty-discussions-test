@@ -63,7 +63,6 @@ export default function Discussions() {
     }
   };
 
-  // Loading state
   if (loading) {
     return (
       <div className="min-h-screen">
@@ -81,7 +80,6 @@ export default function Discussions() {
     );
   }
 
-  // Error state
   if (error || !discussion) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
